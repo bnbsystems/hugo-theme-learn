@@ -3,9 +3,11 @@
 {{ $currentNode := . }}
 {{ $showvisitedlinks := .Site.Params.showVisitedLinks }}
   <div id="header-wrapper">
-    <div id="header">
-      {{ partial "logo.html" . }}
-    </div>
+    {{ $asset := resources.Get "/logo.png" }}
+    {{ $img := $asset.Fit "600x400" }}
+    <figure class="image is-3by2">
+      <img alt="logo" src="{{ $img.RelPermalink }}" />
+    </figure>
     {{if not .Site.Params.disableSearch}}
         {{ partial "search.html" . }}
     {{end}}
@@ -14,7 +16,6 @@
     <section id="homelinks">
       <ul>
         <li>
-            <a class="padding" href='{{ (cond (and (ne .Site.Params.landingPageURL nil) (.Site.IsMultiLingual)) .Site.Params.landingPageURL "/") }}'>{{ safeHTML (cond (ne .Site.Params.landingPageName nil) .Site.Params.landingPageName "<i class='fas fa-home'></i> Home") }}</a>
         </li>
       </ul>
     </section>
